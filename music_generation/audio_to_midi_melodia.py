@@ -133,6 +133,7 @@ def audio_to_midi_melodia(infile, outfile, smooth=0.25, minduration=0.0):
     save_midi(outfile, notes, bpm)
 
     print("Conversion complete.")
+    return notes
 
 
 if __name__ == "__main__":
