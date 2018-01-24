@@ -48,7 +48,7 @@ def midi_to_notes(midi, fs, hop, smooth, minduration):
     # print(len(midi),len(midi_filt))
 
     notes = []
-    p_prev = None
+    p_prev = 0
     duration = 0
     onset = 0
     for n, p in enumerate(midi_filt):
@@ -115,25 +115,24 @@ def audio_to_midi_melodia(infile, outfile, smooth=0.25, minduration=0.0):
     # impute missing 0's to compensate for starting timestamp
     pitch = np.insert(pitch, 0, [0]*8)
     
-    print(pitch)
-    
     # debug
     # np.asarray(pitch).dump('f0.npy')
     # print(len(pitch))
 
     # convert f0 to midi notes
     print("Converting Hz to MIDI notes...")
-    midi_pitch = hz2midi(pitch)
+    midi_pitch = hz2midi(data)
 
     # segment sequence into individual midi notes
     notes = midi_to_notes(midi_pitch, fs, hop, smooth, minduration)
 
     # save note sequence to a midi file
     print("Saving MIDI to disk...")
+    print(outfile)
     save_midi(outfile, notes, bpm)
 
     print("Conversion complete.")
-    return notes
+    return notes, sr
 
 
 if __name__ == "__main__":

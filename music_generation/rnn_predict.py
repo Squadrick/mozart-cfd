@@ -53,5 +53,6 @@ def generate_midi(midi_data, total_seconds=10):
 
     output = tempfile.NamedTemporaryFile()
     magenta.music.midi_io.sequence_proto_to_midi_file(generated_sequence, output.name)
+    gen_midi = magenta.music.midi_io.sequence_proto_to_pretty_midi(generated_sequence)
     output.seek(0)
-    return output
+    return output, gen_midi
